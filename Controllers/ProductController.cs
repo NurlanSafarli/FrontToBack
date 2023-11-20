@@ -1,6 +1,8 @@
 ﻿using FronyToBack.DAL;
 using FronyToBack.Models;
+using FronyToBack.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FronyToBack.Controllers
 {
@@ -16,15 +18,27 @@ namespace FronyToBack.Controllers
             _context = context;
         }
 
-        public IActionResult Detail(int id)
+        public IActionResult Details(int id)
         {
-            if (id<=0) return BadRequest();
-          
-            Product product= _context.Products.FirstOrDefault(P => P.Id == id);
+            Product product = _context.Products
+                .Include(p => p.Images)
+                .Include(p => p.Category)
+                .Include(p => p.ProductTags).ThenInclude(pt => pt.Tag)
+                .Include(p => p.ProductColors).ThenInclude(pc => pc.Color)
+                .Include(p => p.ProductSizes).ThenInclude(ps => ps.Size)
+                .FirstOrDefault(p => p.Id == id);
+            List<Product> products = _context.Products.Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).Include(p => p.Images).ToList();
 
-            if (product==null) return NotFound();
+            ProductVM productVM = new ProductVM
+            {
 
-            return View(product);
+                Product = product,
+                Products = products
+
+            };
+            if (productVM.Product == null) return NotFound();
+
+            return View(productVM);
         }
     }
 }

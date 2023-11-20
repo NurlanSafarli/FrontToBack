@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9OtAfqVujA6uHY3WDrQvR0vLMtobbLcDpcggg32Ul9FcKVmXkR2ctAIho8YkjoHfVQgAE2HLCayPuA3s7q6R5Q==",
+  "dgSpecHash": "R+YdPQ0YgJUjJC7FOc2GIFBmzLf9j112I7Iq5Oc2tVYJ7u7gbN6xx7QUC0xRKOtTFec9jyWBpwSHTLtR8VgFiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nurla\\OneDrive\\Desktop\\AB202 task\\FronyToBack\\FronyToBack.csproj",
+  "projectFilePath": "C:\\Users\\nurla\\OneDrive\\Desktop\\FrontToBack\\FronyToBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nurla\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\nurla\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

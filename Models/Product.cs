@@ -1,4 +1,6 @@
-﻿namespace FronyToBack.Models
+﻿using Pronia.Models;
+
+namespace FronyToBack.Models
 {
     public class Product
     {
@@ -15,6 +17,9 @@
         public Category ?Category { get; set; }
 
         public List<ProductImage> Images { get; set; }
+        public List<ProductTag> ProductTags { get; set; }
+        public List<ProductColor> ProductColors { get; set; }
+        public List<ProductSize> ProductSizes { get; set; }
 
 
     }

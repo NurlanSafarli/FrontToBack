@@ -2897,11 +2897,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nurla\\OneDrive\\Desktop\\AB202 task\\FronyToBack\\FronyToBack.csproj",
+      "projectUniqueName": "C:\\Users\\nurla\\OneDrive\\Desktop\\FrontToBack\\FronyToBack.csproj",
       "projectName": "FronyToBack",
-      "projectPath": "C:\\Users\\nurla\\OneDrive\\Desktop\\AB202 task\\FronyToBack\\FronyToBack.csproj",
+      "projectPath": "C:\\Users\\nurla\\OneDrive\\Desktop\\FrontToBack\\FronyToBack.csproj",
       "packagesPath": "C:\\Users\\nurla\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nurla\\OneDrive\\Desktop\\AB202 task\\FronyToBack\\obj\\",
+      "outputPath": "C:\\Users\\nurla\\OneDrive\\Desktop\\FrontToBack\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nurla\\AppData\\Roaming\\NuGet\\NuGet.Config",
