@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Pronia.Models
+namespace FronyToBack.Models
 {
     public class Tag
     {

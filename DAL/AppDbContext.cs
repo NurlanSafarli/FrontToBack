@@ -1,7 +1,7 @@
 ﻿using Azure;
 using FronyToBack.Models;
 using Microsoft.EntityFrameworkCore;
-using Pronia.Models;
+
 
 
 namespace FronyToBack.DAL

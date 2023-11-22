@@ -1,7 +1,7 @@
 ﻿using FronyToBack.Models;
 
 
-namespace Pronia.Models
+namespace FronyToBack.Models
 {
     public class ProductSize
     {

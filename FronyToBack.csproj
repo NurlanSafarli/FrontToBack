@@ -1,10 +1,126 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\css\maps\style.css.map" />
+    <None Include="wwwroot\admin\css\style.css" />
+    <None Include="wwwroot\admin\fonts\.DS_Store" />
+    <None Include="wwwroot\admin\fonts\Roboto\.DS_Store" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Black.eot" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Black.ttf" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Black.woff" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Black.woff2" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Bold.eot" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Bold.ttf" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Bold.woff" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Light.eot" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Light.ttf" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Light.woff" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Medium.eot" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Medium.ttf" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Medium.woff" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.eot" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\admin\images\.DS_Store" />
+    <None Include="wwwroot\admin\images\auth\.DS_Store" />
+    <None Include="wwwroot\admin\images\auth\lockscreen-bg.jpg" />
+    <None Include="wwwroot\admin\images\auth\login-bg.jpg" />
+    <None Include="wwwroot\admin\images\auth\register-bg.jpg" />
+    <None Include="wwwroot\admin\images\css\maps\style.css.map" />
+    <None Include="wwwroot\admin\images\css\style.css" />
+    <None Include="wwwroot\admin\images\faces\.DS_Store" />
+    <None Include="wwwroot\admin\images\faces\face1.jpg" />
+    <None Include="wwwroot\admin\images\faces\face10.jpg" />
+    <None Include="wwwroot\admin\images\faces\face11.jpg" />
+    <None Include="wwwroot\admin\images\faces\face12.jpg" />
+    <None Include="wwwroot\admin\images\faces\face13.jpg" />
+    <None Include="wwwroot\admin\images\faces\face14.jpg" />
+    <None Include="wwwroot\admin\images\faces\face15.jpg" />
+    <None Include="wwwroot\admin\images\faces\face16.jpg" />
+    <None Include="wwwroot\admin\images\faces\face17.jpg" />
+    <None Include="wwwroot\admin\images\faces\face18.jpg" />
+    <None Include="wwwroot\admin\images\faces\face19.jpg" />
+    <None Include="wwwroot\admin\images\faces\face2.jpg" />
+    <None Include="wwwroot\admin\images\faces\face20.jpg" />
+    <None Include="wwwroot\admin\images\faces\face21.jpg" />
+    <None Include="wwwroot\admin\images\faces\face22.jpg" />
+    <None Include="wwwroot\admin\images\faces\face23.jpg" />
+    <None Include="wwwroot\admin\images\faces\face24.jpg" />
+    <None Include="wwwroot\admin\images\faces\face25.jpg" />
+    <None Include="wwwroot\admin\images\faces\face26.jpg" />
+    <None Include="wwwroot\admin\images\faces\face27.jpg" />
+    <None Include="wwwroot\admin\images\faces\face3.jpg" />
+    <None Include="wwwroot\admin\images\faces\face4.jpg" />
+    <None Include="wwwroot\admin\images\faces\face5.jpg" />
+    <None Include="wwwroot\admin\images\faces\face6.jpg" />
+    <None Include="wwwroot\admin\images\faces\face7.jpg" />
+    <None Include="wwwroot\admin\images\faces\face8.jpg" />
+    <None Include="wwwroot\admin\images\faces\face9.jpg" />
+    <None Include="wwwroot\admin\images\favicon.ico" />
+    <None Include="wwwroot\admin\images\favicon.png" />
+    <None Include="wwwroot\admin\images\fonts\.DS_Store" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\.DS_Store" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Black.eot" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Black.ttf" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Black.woff" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Black.woff2" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Bold.eot" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Bold.ttf" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Bold.woff" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Light.eot" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Light.ttf" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Light.woff" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Medium.eot" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Medium.ttf" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Medium.woff" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Regular.eot" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\admin\images\logo-mini.svg" />
+    <None Include="wwwroot\admin\images\logo.svg" />
+    <None Include="wwwroot\admin\js\.DS_Store" />
+    <None Include="wwwroot\admin\js\chart.js" />
+    <None Include="wwwroot\admin\js\Chart.min.js" />
+    <None Include="wwwroot\admin\js\dashboard.js" />
+    <None Include="wwwroot\admin\js\data-table.js" />
+    <None Include="wwwroot\admin\js\dataTables.bootstrap4.js" />
+    <None Include="wwwroot\admin\js\documentation.js" />
+    <None Include="wwwroot\admin\js\file-upload.js" />
+    <None Include="wwwroot\admin\js\hoverable-collapse.js" />
+    <None Include="wwwroot\admin\js\jquery.cookie.js" />
+    <None Include="wwwroot\admin\js\jquery.dataTables.js" />
+    <None Include="wwwroot\admin\js\off-canvas.js" />
+    <None Include="wwwroot\admin\js\tabs.js" />
+    <None Include="wwwroot\admin\js\template.js" />
+    <None Include="wwwroot\admin\vendors\.DS_Store" />
+    <None Include="wwwroot\admin\vendors\base\bootstrap.min.js.map" />
+    <None Include="wwwroot\admin\vendors\base\vendor.bundle.base.css" />
+    <None Include="wwwroot\admin\vendors\base\vendor.bundle.base.js" />
+    <None Include="wwwroot\admin\vendors\chart.js\Chart.min.js" />
+    <None Include="wwwroot\admin\vendors\datatables.net-bs4\dataTables.bootstrap4.css" />
+    <None Include="wwwroot\admin\vendors\datatables.net-bs4\dataTables.bootstrap4.js" />
+    <None Include="wwwroot\admin\vendors\datatables.net\jquery.dataTables.js" />
+    <None Include="wwwroot\admin\vendors\mdi\css\materialdesignicons.min.css" />
+    <None Include="wwwroot\admin\vendors\mdi\css\materialdesignicons.min.css.map" />
+    <None Include="wwwroot\admin\vendors\mdi\fonts\materialdesignicons-webfont.eot" />
+    <None Include="wwwroot\admin\vendors\mdi\fonts\materialdesignicons-webfont.ttf" />
+    <None Include="wwwroot\admin\vendors\mdi\fonts\materialdesignicons-webfont.woff" />
+    <None Include="wwwroot\admin\vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />

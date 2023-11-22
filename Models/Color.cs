@@ -1,4 +1,4 @@
-﻿namespace Pronia.Models
+﻿namespace FronyToBack.Models
 {
     public class Color
     {
