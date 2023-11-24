@@ -52,5 +52,27 @@ public class SliderController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
+    public async Task<IActionResult> Delete(int? id)
+    {
+      
+            await _context.Delete(id);
+            return RedirectToAction(nameof(Index));
+
+    }
+
+    public async Task<IActionResult> Update(int? id)
+    {
+        
+            return View(await _context.GetById(id));
+   
+    }
+    [HttpPost]
+    public async Task<IActionResult> Update(int? id, Slide slide)
+    {
+      
+            await _context.Update(slide);
+            return RedirectToAction(nameof(Index));
+
+    }
 }
-}
+
