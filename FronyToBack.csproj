@@ -31,7 +31,6 @@
     <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.ttf" />
     <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.woff" />
     <None Include="wwwroot\admin\fonts\Roboto\Roboto-Regular.woff2" />
-    <None Include="wwwroot\admin\images\.DS_Store" />
     <None Include="wwwroot\admin\images\auth\.DS_Store" />
     <None Include="wwwroot\admin\images\auth\lockscreen-bg.jpg" />
     <None Include="wwwroot\admin\images\auth\login-bg.jpg" />
@@ -68,7 +67,6 @@
     <None Include="wwwroot\admin\images\faces\face9.jpg" />
     <None Include="wwwroot\admin\images\favicon.ico" />
     <None Include="wwwroot\admin\images\favicon.png" />
-    <None Include="wwwroot\admin\images\fonts\.DS_Store" />
     <None Include="wwwroot\admin\images\fonts\Roboto\.DS_Store" />
     <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Black.eot" />
     <None Include="wwwroot\admin\images\fonts\Roboto\Roboto-Black.ttf" />
@@ -129,6 +127,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\ViewModels\" />
   </ItemGroup>
 
 </Project>
