@@ -2,77 +2,98 @@
 using FronyToBack.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.FileIO;
+using FronyToBack.Areas.ProniaAdmin.ViewModels;
+using FronyToBack.Utilities.Extencions;
+using FronyToBack.Utilities.Enums;
 
 public class SliderController : Controller
 {
     private readonly AppDbContext _context;
-    public SliderController(AppDbContext context)
+    private readonly IWebHostEnvironment _env;
+
+    public SliderController(AppDbContext context, IWebHostEnvironment env)
     {
         _context = context;
+        _env = env;
+
     }
 
     public async Task<IActionResult> Index()
     {
-
         List<Slide> slides = await _context.Slides.ToListAsync();
         return View(slides);
     }
+
     public IActionResult Create()
     {
         return View();
     }
+
     [HttpPost]
-    public async Task<IActionResult> Create(Slide slide)
+    public async Task<IActionResult> Create(CreateSlideVM slideVM)
     {
+        if (!ModelState.IsValid) return View();
 
-        if (slide.ImageFile is null)
+
+        if (!slideVM.Photo.CheckFileType(FileType.Image))
         {
-            ModelState.AddModelError("Photo", "Shekil mutleq secilmelidir");
+            ModelState.AddModelError("Photo", "Please, make sure you uploaded photo!");
             return View();
         }
 
-        if (!slide.ImageFile.ContentType.Contains("image/"))
+        if (slideVM.Photo.Length > 2 * 1024 * 1024)
         {
-            ModelState.AddModelError("Photo", "File tipi uyqun deyil");
+            ModelState.AddModelError("Photo", "Photo size must be less than 2MB!");
             return View();
         }
-        if (slide.ImageFile.Length > 2 * 1024 * 1024)
+
+        Slide slide = new Slide
         {
-            ModelState.AddModelError("Photo", "File olcusu 2-mb den boyuk olmamalidir");
-            return View();
+            Title = slideVM.Title,
+            Subtitle = slideVM.Subtitle,
+            Description = slideVM.Description,
+            Order = slideVM.Order
 
-        }
+        };
 
-        FileStream fileStream = new FileStream(@"C:\Users\nurla\OneDrive\Desktop\FrontToBack\wwwroot\admin\images\logo.svg" + slide.ImageFile.FileName, FileMode.Create);
-        await slide.ImageFile.CopyToAsync(fileStream);
-        slide.Image = slide.ImageFile.FileName;
-
-        return Content(slide.ImageFile.FileName + " " + slide.ImageFile.ContentType + " " + slide.ImageFile.Length);
+        slide.ImageURL = await slideVM.Photo.CreateFileAsync(_env.WebRootPath, "assets", "image", "bg-images");
         await _context.Slides.AddAsync(slide);
         await _context.SaveChangesAsync();
+
+
+
         return RedirectToAction(nameof(Index));
     }
-    public async Task<IActionResult> Delete(int? id)
+
+    public async Task<IActionResult> Delete(int id)
     {
-      
-            await _context.Delete(id);
-            return RedirectToAction(nameof(Index));
+        if (id <= 0) return BadRequest();
+
+        Slide slide = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
+        if (slide is null) return NotFound();
+
+
+        slide.ImageURL.DeleteFile(_env.WebRootPath, "assets", "image", "bg-images");
+
+        _context.Slides.Remove(slide);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+
+
+
 
     }
 
-    public async Task<IActionResult> Update(int? id)
-    {
-        
-            return View(await _context.GetById(id));
-   
-    }
-    [HttpPost]
-    public async Task<IActionResult> Update(int? id, Slide slide)
-    {
-      
-            await _context.Update(slide);
-            return RedirectToAction(nameof(Index));
 
+    public async Task<IActionResult> Update(int id)
+    {
+        if (id <= 0) return BadRequest();
+
+        Slide slide = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
+        if (slide is null) return NotFound();
+
+        return View(slide);
     }
 }
 

@@ -44,7 +44,7 @@ namespace FronyToBack.Areas.ProniaAdmin.Controllers
         }
 
 
-        //UPDATE 
+      
         public async Task<IActionResult> Update(int id)
         {
             if (id <= 0) return BadRequest();
@@ -74,7 +74,7 @@ namespace FronyToBack.Areas.ProniaAdmin.Controllers
         }
 
 
-        //DELETE
+        
 
         public async Task<IActionResult> Delete(int id)
         {

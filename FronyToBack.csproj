@@ -130,7 +130,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ViewModels\" />
+    <Folder Include="Areas\ViewModels\NewFolder\" />
   </ItemGroup>
 
 </Project>
