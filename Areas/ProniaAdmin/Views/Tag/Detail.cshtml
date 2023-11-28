@@ -1,0 +1,11 @@
+﻿﻿@model Tag
+
+<div class="card">
+
+    <div class="card-body">
+        <h5 class="card-title">Title: @Model.Id</h5>
+        <p class="card-text">Subtitle @Model.Name</p>
+            
+        <a asp-controller="category" asp-action="index" class="btn btn-success">Cancel</a>
+    </div>
+</div>

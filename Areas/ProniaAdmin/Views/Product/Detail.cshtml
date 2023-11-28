@@ -1,0 +1,15 @@
+﻿﻿@model Product
+<div class="card">
+
+    <div class="card-body">
+
+
+        <h5 class="card-title">Title: @Model.Id</h5>
+        <p class="card-text">Subtitle @Model.Price</p>
+        <p class="card-text">Order: @Model.Name</p>
+        <p class="card-text">Id: @Model.SKU</p>
+        <p class="card-text"> @Model.Description</p>
+
+        <a asp-controller="Product" asp-action="index" class="btn btn-success">Cancel</a>
+    </div>
+</div>

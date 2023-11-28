@@ -129,8 +129,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\ViewModels\NewFolder\" />
-  </ItemGroup>
-
 </Project>

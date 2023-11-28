@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using FronyToBack.DAL;
 using FronyToBack.Models;
+using FronyToBack.Areas.ViewModels.Tag;
 
 namespace Pronia.Areas.ProniaAdmin.Controllers
 {
@@ -15,78 +16,91 @@ namespace Pronia.Areas.ProniaAdmin.Controllers
             _context = context;
         }
 
-
         public async Task<IActionResult> Index()
         {
-            List<Tag> tags = await _context.Tags.Include(t => t.ProductTags).ToListAsync();
-            return View(tags);
+            List<Tag> Tags = await _context.Tags
+                .Include(t => t.ProductTags)
+                .ToListAsync();
+            return View(Tags);
         }
+
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Tag tag)
+        public async Task<IActionResult> Create(CreateTagVM tagVM)
         {
             if (!ModelState.IsValid)
             {
                 return View();
 
             }
-            bool result = _context.Tags.Any(c => c.Name.Trim() == tag.Name.Trim());
-            if (result)
+
+            bool isExist = await _context.Tags.AnyAsync(t => t.Name == tagVM.Name);
+
+            if (isExist)
             {
-                ModelState.AddModelError("Name", "Bu adda tag movcuddur");
+                ModelState.AddModelError("Name", "bele tag var");
                 return View();
             }
-            await _context.Tags.AddAsync(tag);
+
+            await _context.Tags.AddAsync(tagVM);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
+
         }
-
-
 
         public async Task<IActionResult> Update(int id)
         {
             if (id <= 0) return BadRequest();
             Tag tag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
-            if (tag == null) return NotFound();
+            if (tag is null) return NotFound();
             return View(tag);
         }
+
         [HttpPost]
-        public async Task<IActionResult> Update(int id, Tag tag)
+        public async Task<IActionResult> Update(int? id, UpdateTagVM tagVM)
         {
+
+            Tag oldTag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
+            if (oldTag is null) return NotFound();
+
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(oldTag);
             }
-            Tag exsisted = await _context.Tags.FirstOrDefaultAsync(c => c.Id == id);
-            if (exsisted == null) return NotFound();
-            bool result = await _context.Tags.AnyAsync(c => c.Name == tag.Name && c.Id != id);
-            if (result)
+            bool isExistName = await _context.Tags.AnyAsync(t => t.Name.Trim() == tagVM.Name.Trim() && t.Id != id);
+            if (isExistName)
             {
-                ModelState.AddModelError("Name", "Bu adda tag atriq movcuddur");
-
+                ModelState.AddModelError("Name", "bele tag var");
                 return View();
             }
-            exsisted.Name = tag.Name;
+
+
+            if (oldTag.Name == tagVM.Name.Trim()) return RedirectToAction(nameof(Index));
+
+            oldTag.Name = tagVM.Name;
             await _context.SaveChangesAsync();
+
+
             return RedirectToAction(nameof(Index));
         }
 
-
-      
 
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) return BadRequest();
 
-            Tag existed = await _context.Tags.FirstOrDefaultAsync(c => c.Id == id);
+            Tag tag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
 
-            if (existed is null) return NotFound();
-            _context.Tags.Remove(existed);
+            if (tag is null) return NotFound();
+
+            _context.Tags.Remove(tag);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        
     }
 }
