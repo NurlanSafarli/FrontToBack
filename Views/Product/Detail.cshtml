@@ -1,5 +1,4 @@
-﻿@using FronyToBack.Models;
-@model ProductVM
+﻿﻿@model DetailVM
 
 <!-- Begin Main Content Area  -->
 <main class="main-content">
@@ -14,7 +13,7 @@
                             <li>
                                 <a href="index.html">Home</a>
                             </li>
-                            <li>Single Product</li>
+                            <li>Single Product variable</li>
                         </ul>
                     </div>
                 </div>
@@ -28,33 +27,33 @@
                     <div class="single-product-img">
                         <div class="swiper-container single-product-slider">
                             <div class="swiper-wrapper">
-                                @foreach (ProductImage img in Model.Product.Images)
+
+                                @foreach (ProductImage pImage in Model.Product.ProductImages.OrderByDescending(pi => pi.IsPrimary))
                                 {
+
                                     <div class="swiper-slide">
-                                        <a href="~/assets/images/website-images/@img.ImageUrl"
-                                           class="single-img gallery-popup">
+                                        <a href="~/assets/images/website-images/@pImage.Url"
+                                       class="single-img gallery-popup">
                                             <img class="img-full"
-                                                 src="~/assets/images/website-images/@img.ImageUrl"
-                                                 alt="Product Image" />
+                                             src="~/assets/images/website-images/@pImage.Url"
+                                             alt="@pImage.Alternative" />
                                         </a>
                                     </div>
                                 }
-
 
                             </div>
                         </div>
                         <div class="thumbs-arrow-holder">
                             <div class="swiper-container single-product-thumbs">
                                 <div class="swiper-wrapper">
-                                    @foreach (ProductImage img in Model.Product.Images)
+                                    @foreach (ProductImage pImage in Model.Product.ProductImages.OrderByDescending(pi=>pi.IsPrimary))
                                     {
                                         <a href="#" class="swiper-slide">
                                             <img class="img-full"
-                                                 src="~/assets/images/website-images/@img.ImageUrl"
-                                                 alt="Product Thumnail" />
+                                             src="~/assets/images/website-images/@pImage.Url"
+                                             alt="@pImage.Alternative" />
                                         </a>
                                     }
-
 
                                 </div>
                                 <!-- Add Arrows -->
@@ -76,7 +75,7 @@
                         <div class="price-box">
                             <span class="new-price">$@Model.Product.Price</span>
                         </div>
-                        <div class="rating-box-wrap pb-4">
+                        <div class="rating-box-wrap">
                             <div class="rating-box">
                                 <ul>
                                     <li><i class="fa fa-star"></i></li>
@@ -93,26 +92,22 @@
                         <div class="selector-wrap color-option">
                             <span class="selector-title border-bottom-0">Color</span>
                             <select class="nice-select wide border-bottom-0 rounded-0">
-                                @foreach (var color in Model.Product.ProductColors)
-                                {
-                                    <option value="red">@color.Color.Name</option>
-
-                                }
+                                <option value="default">Black & White</option>
+                                <option value="blue">Blue</option>
+                                <option value="green">Green</option>
+                                <option value="red">Red</option>
                             </select>
                         </div>
                         <div class="selector-wrap size-option">
                             <span class="selector-title">Size</span>
                             <select class="nice-select wide rounded-0">
-                                @foreach (ProductSize size in Model.Product.ProductSizes)
-                                {
-                                    <option value="medium">@size.Size.Name</option>
-
-                                }
-
+                                <option value="medium">Medium Size & Poot</option>
+                                <option value="large">Large Size With Poot</option>
+                                <option value="small">Small Size With Poot</option>
                             </select>
                         </div>
                         <p class="short-desc">
-                            @(Model.Product.Description.Length >= 50 ? Model.Product.Description.Substring(0, 50) : Model.Product.Description)
+                             @(Model.Product.Description.Length<=100? Model.Product.Description : Model.Product.Description.Substring(0,100)+"....")
                         </p>
                         <ul class="quantity-with-btn">
                             <li class="quantity">
@@ -184,22 +179,22 @@
                             </ul>
                         </div>
                         <div class="product-category">
-                            <span class="title">Categories :</span>
+                            <span class="title">Category :</span>
                             <ul>
+
                                 <li>
                                     <a href="#">@Model.Product.Category.Name</a>
                                 </li>
-
                             </ul>
                         </div>
                         <div class="product-category product-tags">
                             <span class="title">Tags :</span>
                             <ul>
-                                @foreach (ProductTag pt in Model.Product.ProductTags)
+                                @foreach (ProductTag productTag in Model.Product.ProductTags)
                                 {
                                     <li>
-                                        <a href="#">@pt.Tag.Name</a>
-                                    </li>
+                                    <a href="#">@productTag.Tag.Name@(productTag!=Model.Product.ProductTags[Model.Product.ProductTags.Count-1]?",":"")</a>
+                                  </li>
                                 }
                             </ul>
                         </div>
@@ -366,7 +361,7 @@
                                     </div>
                                     <div class="blog-comment-item relpy-item">
                                         <div class="blog-comment-img">
-                                            <img src="~/assets/images/website-images/1-2-120x120.png"
+                                            <img src="~/assets/images/website-images/1-2-120x120.webp"
                                                  alt="User Image" />
                                         </div>
                                         <div class="blog-comment-content">
@@ -387,7 +382,7 @@
                                     </div>
                                     <div class="blog-comment-item">
                                         <div class="blog-comment-img">
-                                            <img src="~/assets/images/website-images/1-3-120x120.png"
+                                            <img src="~/assets/images/website-images/1-3-120x120.webp"
                                                  alt="User Image" />
                                         </div>
                                         <div class="blog-comment-content">
@@ -452,6 +447,10 @@
         </div>
     </div>
 
-  
+    <!-- Begin Product Area -->
+    <div class="product-area section-space-y-axis-90">
+       @await Html.PartialAsync("ProductPartialView",Model.RelatedProducts)
+    </div>
+    <!-- Product Area End Here -->
 </main>
 <!-- Main Content Area End Here  -->

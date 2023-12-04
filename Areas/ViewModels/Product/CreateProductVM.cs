@@ -22,5 +22,6 @@ namespace FronyToBack.Areas.ViewModels.Product
         public IFormFile MainPhoto { get; set; }
         public IFormFile HoverPhoto { get; set; }
         public List<IFormFile>? Photos { get; set; }
+
     }
 }

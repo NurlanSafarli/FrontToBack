@@ -24,6 +24,8 @@ namespace FronyToBack.DAL
 
         }
 
-    
+        public DbSet<Setting> Settings { get; set; }
+
+
     }
 }
