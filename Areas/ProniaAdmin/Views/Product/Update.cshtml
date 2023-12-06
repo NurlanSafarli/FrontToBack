@@ -1,6 +1,6 @@
-﻿﻿@{
-    ProductImage main = Model.ProductImages.FirstOrDefault(pi => pi.IsPrimary == true);
-    ProductImage hover = Model.ProductImages.FirstOrDefault(pi => pi.IsPrimary == false);
+﻿@* @* ﻿@{
+    // ProductImage main = Model.ProductImages.FirstOrDefault(pi => pi.IsPrimary == true);
+    // ProductImage hover = Model.ProductImages.FirstOrDefault(pi => pi.IsPrimary == false);
 }
 @model UpdateProductVM
 
@@ -79,7 +79,7 @@
                                 <option value="@category.Id"> @category.Name </option>
                                 }
                                 </select>*@
-                                <select asp-for="CategoryId" asp-items="new SelectList(@Model.Categories,nameof(Category.Id),nameof(Category.Name))" class="form-control">
+                              @*   <select asp-for="CategoryId" asp-items="new SelectList(@Model.Categories,nameof(Category.Id),nameof(Category.Name))" class="form-control">
                                 </select>
 
                                 <span class="text-danger" asp-validation-for="CategoryId"></span>
@@ -118,3 +118,4 @@
 
     </script>
 }
+ *@
