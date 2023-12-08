@@ -1,5 +1,6 @@
 ﻿using Azure;
 using FronyToBack.Models;
+using FronyToBack.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -19,6 +20,8 @@ namespace FronyToBack.DAL
 
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 

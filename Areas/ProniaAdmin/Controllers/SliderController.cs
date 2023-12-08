@@ -3,9 +3,9 @@ using FronyToBack.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
-using FronyToBack.Areas.ProniaAdmin.ViewModels;
 using FronyToBack.Utilities.Extencions;
 using FronyToBack.Utilities.Enums;
+using FronyToBack.Areas.ProniaAdmin.ViewModels.Slide;
 
 public class SliderController : Controller
 {

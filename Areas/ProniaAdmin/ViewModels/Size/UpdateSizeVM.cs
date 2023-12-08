@@ -1,8 +1,8 @@
 ﻿using FronyToBack.Models;
 
-namespace FronyToBack.Areas.ViewModels.Size
+namespace FronyToBack.Areas.ProniaAdmin.ViewModels.Size
 {
-    public class CreateSizeVM
+    public class UpdateSizeVM
     {
         public string Name { get; set; }
         public List<ProductSize>? ProductSizes { get; set; }

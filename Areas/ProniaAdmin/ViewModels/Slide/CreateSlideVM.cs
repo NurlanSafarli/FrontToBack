@@ -1,4 +1,4 @@
-﻿namespace FronyToBack.Areas.ProniaAdmin.ViewModels
+﻿namespace FronyToBack.Areas.ProniaAdmin.ViewModels.Slide
 {
     public class CreateSlideVM
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using FronyToBack.DAL;
 using FronyToBack.Models;
-using FronyToBack.Areas.ViewModels.Tag;
+using FronyToBack.Areas.ProniaAdmin.ViewModels.Tag;
 
 namespace Pronia.Areas.ProniaAdmin.Controllers
 {

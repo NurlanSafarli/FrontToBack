@@ -1,4 +1,4 @@
-﻿using FronyToBack.Areas.ViewModels.Color;
+﻿using FronyToBack.Areas.ProniaAdmin.ViewModels.Color;
 using FronyToBack.DAL;
 using FronyToBack.Models;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 ﻿using FronyToBack.Models;
 
-namespace FronyToBack.Areas.ViewModels.Product
+namespace FronyToBack.Areas.ProniaAdmin.ViewModels.Product
 {
     public class UpdateProductVM
     {

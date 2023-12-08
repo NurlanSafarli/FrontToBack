@@ -1,8 +1,8 @@
 ﻿using FronyToBack.Models;
 
-namespace FronyToBack.Areas.ViewModels.Tag
+namespace FronyToBack.Areas.ProniaAdmin.ViewModels.Tag
 {
-    public class UpdateTagVM
+    public class CreateTagVM
     {
         public string Name { get; set; }
         public List<ProductTag>? ProductTags { get; set; }

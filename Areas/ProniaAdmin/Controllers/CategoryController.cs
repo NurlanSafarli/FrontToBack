@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using FronyToBack.DAL;
 using FronyToBack.Models;
+using FronyToBack.Areas.ProniaAdmin.ViewModels.Category;
 
 namespace FronyToBack.Areas.ProniaAdmin.Controllers
 {
     [Area("ProniaAdmin")]
+    [AutoValidateAntiforgeryToken]
     public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
@@ -14,10 +16,11 @@ namespace FronyToBack.Areas.ProniaAdmin.Controllers
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
+
             List<Category> categories = await _context.Categories.Include(c => c.Products).ToListAsync();
+
             return View(categories);
         }
         public IActionResult Create()
@@ -25,32 +28,49 @@ namespace FronyToBack.Areas.ProniaAdmin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Category category)
+
+        public async Task<IActionResult> Create(CreateCategoryVM categoryVM)
         {
+
             if (!ModelState.IsValid)
             {
                 return View();
-
             }
-            bool result = _context.Categories.Any(c => c.Name.Trim() == category.Name.Trim());
+
+            bool result = _context.Categories.Any(c => c.Name.Trim() == categoryVM.Name.Trim());
+
             if (result)
             {
-                ModelState.AddModelError("Name", "Bu adda category movcuddur");
+                ModelState.AddModelError("Name", "Bu adda category artiq movcuddur");
                 return View();
             }
+            Category category = new Category
+            {
+                Name = categoryVM.Name,
+
+            };
+
+
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
+
         }
-
-
-      
         public async Task<IActionResult> Update(int id)
         {
-            if (id <= 0) return BadRequest();
-            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-            if (category == null) return NotFound();
-            return View(category);
+            if (id <= 0) return View();
+            Category existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            if (existed is null) return NotFound();
+            
+            UpdateCategoryVM categoryVM = new UpdateCategoryVM
+            {
+                Name = existed.Name,
+            };
+            return View(categoryVM);
+
+
+
         }
         [HttpPost]
         public async Task<IActionResult> Update(int id, Category category)
@@ -59,41 +79,42 @@ namespace FronyToBack.Areas.ProniaAdmin.Controllers
             {
                 return View();
             }
-            Category exsisted = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-            if (exsisted == null) return NotFound();
+            Category existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            if (existed is null) return NotFound();
             bool result = await _context.Categories.AnyAsync(c => c.Name == category.Name && c.Id != id);
             if (result)
             {
-                ModelState.AddModelError("Name", "Bu adda category atriq movcuddur");
-
+                ModelState.AddModelError("Name", "bu adda category artiq movcuddur");
                 return View();
             }
-            exsisted.Name = category.Name;
+            existed.Name = category.Name;
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-
-
-        
-
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) return BadRequest();
-
             Category existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-
             if (existed is null) return NotFound();
             _context.Categories.Remove(existed);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detail(int id)
         {
-            if (id == null || id < 1) return BadRequest();
-            Category existed = await _context.Categories.Include(c=>c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            if (id == null) return NotFound();
+
+
+            Slide existed = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
+
             if (existed == null) return NotFound();
+
             return View(existed);
+
         }
+
+
+
     }
 }

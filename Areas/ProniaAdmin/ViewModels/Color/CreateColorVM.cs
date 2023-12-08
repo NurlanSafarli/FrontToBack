@@ -1,9 +1,10 @@
 ﻿using FronyToBack.Models;
 
-namespace FronyToBack.Areas.ViewModels.Color
+namespace FronyToBack.Areas.ProniaAdmin.ViewModels.Color
 {
-    public class UpdateColorVM
+    public class CreateColorVM
     {
+
         public string Name { get; set; }
         public List<ProductColor>? ProductColors { get; set; }
     }
