@@ -1,6 +1,7 @@
 ﻿using FronyToBack.DAL;
 using FronyToBack.Models;
 using FronyToBack.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,13 @@ namespace FronyToBack.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IEmailService _emailService;
 
-        public BasketController(AppDbContext context, UserManager<AppUser> userManager)
+        public BasketController(AppDbContext context, UserManager<AppUser> userManager, IEmailService emailService)
         {
             _context = context;
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> Index()
@@ -25,13 +28,15 @@ namespace FronyToBack.Controllers
             List<BasketItemVM> items = new List<BasketItemVM>();
             if (User.Identity.IsAuthenticated)
             {
+
                 AppUser? user = await _userManager.Users
-                    .Include(x => x.BasketItems)
+                    .Include(x => x.BasketItems.Where(bi => bi.OrderId == null))
                     .ThenInclude(bi => bi.Product)
                     .ThenInclude(p => p.ProductImages.Where(pi => pi.IsPrimary == true))
                     .FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
                 foreach (BasketItem basketitem in user.BasketItems)
                 {
+
                     items.Add(new BasketItemVM
                     {
                         Id = basketitem.ProductId,
@@ -42,6 +47,7 @@ namespace FronyToBack.Controllers
                         Image = basketitem.Product.ProductImages.FirstOrDefault()?.Url
 
                     }); ;
+
                 }
             }
             else
@@ -85,9 +91,9 @@ namespace FronyToBack.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-               
+                
                 AppUser? user = await _userManager.Users
-                    .Include(u => u.BasketItems)
+                    .Include(u => u.BasketItems.Where(bi => bi.OrderId == null))
                     .FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
                 if (user == null) return NotFound();
                 BasketItem item = user.BasketItems.FirstOrDefault(bi => bi.ProductId == product.Id);
@@ -158,13 +164,92 @@ namespace FronyToBack.Controllers
 
 
         }
-        public IActionResult Chechout()
+
+        public async Task<IActionResult> Chechout()
         {
-            return View();
+            AppUser user = await _userManager.Users
+                .Include(u => u.BasketItems.Where(bi => bi.OrderId == null))
+                .ThenInclude(bi => bi.Product)
+                .FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            OrderVM orderVM = new OrderVM
+            {
+                BasketItems = user.BasketItems
+            };
+            return View(orderVM);
         }
+
+        public async Task<IActionResult> Chechout(OrderVM orderVM)
+        {
+            AppUser user = await _userManager.Users
+
+
+               .Include(u => u.BasketItems.Where(bi => bi.OrderId == null))
+
+               .ThenInclude(bi => bi.Product)
+
+               .FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (!ModelState.IsValid)
+            {
+                orderVM.BasketItems = user.BasketItems;
+                return View(orderVM);
+            }
+
+            decimal total = 0;
+
+            foreach (var item in user.BasketItems)
+            {
+                item.Price = item.Product.Price;
+                total += item.Price * item.Price;
+            }
+
+
+            Order order = new Order
+            {
+
+                Status = null,
+                Adress = orderVM.Address,
+                AppUserId = user.Id,
+                PurchasedAt = DateTime.Now,
+                BasketItems = user.BasketItems,
+                TotalPrice = total
+            };
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            string body = @"
+                           Your order successfully placed:
+                           <table border=""1"">                       
+                              <thead>
+                                 <tr>
+                                     <th>Name</th>
+                                     <th>Price</th>        
+                                     <th>Count</th>    
+                                 </tr>
+                             </thead>
+                           <tbody>";
+            foreach (var item in order.BasketItems)
+            {
+                body += @$" <tr>
+                                     <td>{item.Product.Name}</td>
+                                     <td>{item.Price}</td>
+                                     <td>{item.Count}</td>
+                          </tr>";
+            }
+            body += @"<tbody>
+                     </table>";
+
+
+
+            await _emailService.SendEmailAysnc(user.Email, "Your Order", body, true);
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult GetBasket()
         {
             return Content(Request.Cookies["Basket"]);
         }
+
     }
 }

@@ -8,7 +8,7 @@ namespace FronyToBack.Models
         public string Name { get; set; }
         public string SurName { get; set; }
         public List<BasketItem> BasketItems { get; set; }
-
+        public List<Order> Orders { get; set; }
     }
    
 }

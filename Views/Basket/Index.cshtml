@@ -41,8 +41,10 @@
                                 <tbody>
                                     @foreach (BasketItemVM item in Model)
                                     {
+
                                         total += item.SubTotal;
                                         <tr>
+
                                             <td class="product_remove">
                                                 <a >
                                                     <i class="pe-7s-close"
@@ -54,34 +56,50 @@
                                                    data-tippy-theme="sharpborder"></i>
                                                 </a>
                                             </td>
+
                                             <td class="product-thumbnail">
+
                                                 <a asp-action="detail" asp-controller="product" asp-route-id="@item.Id">
                                                     <img style="width:150px;height:150px;" src="~/assets/images/website-images/@item.Image"
                                                      alt="Cart Thumbnail" />
                                                 </a>
+
+
                                             </td>
                                             <td class="product-name">
+
                                                 <a  asp-action="detail" asp-controller="product" asp-route-id="@item.Id">@item.Name</a>
+                                          
                                             </td>
                                             <td class="product-price">
+
                                                 <span class="amount">$@item.Price</span>
                                             </td>
+
                                             <td class="quantity">
+
                                                 <div class="cart-plus-minus">
                                                     <input class="cart-plus-minus-box"
                                                        value="@item.Count"
                                                        type="text" />
+                                                       
                                                     <div class="dec qtybutton">
                                                         <i class="fa fa-minus"></i>
                                                     </div>
+
                                                     <div class="inc qtybutton">
                                                         <i class="fa fa-plus"></i>
                                                     </div>
+
                                                 </div>
+
                                             </td>
+
                                             <td class="product-subtotal">
                                                 <span class="amount">$@item.SubTotal</span>
                                             </td>
+
+
                                         </tr>
 
                                     }
